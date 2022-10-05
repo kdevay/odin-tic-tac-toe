@@ -3,17 +3,6 @@
     padding: 0;
 }
 
-button {
-    /* padding: 10px 0; */
-    height: 40px;
-    width: 140px;
-    background-color: rgb(224, 172, 95);
-    font-weight: bold;
-    border-radius: 82px;
-    border:none;
-    margin: 20px;
-}
-
 
 
 /* Layer 1 */
@@ -28,7 +17,7 @@ button {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-content: center;
     align-items: center;
@@ -40,15 +29,13 @@ button {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    align-items: center;
 }
 
 
 
 /* layer 2 */
 #header  {
-    height: 20vh;
-    width: 100%;
-    background-color: rgb(125, 54, 28);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,8 +43,16 @@ button {
     gap: 20px;
 }
 
-.zig::after {
-    background: linear-gradient(-45deg, #ffffff 16px, transparent 0), linear-gradient(45deg, #ffffff 16px, transparent 0);
+#zig {
+    position: relative;
+    height: 23vh;
+    width: 100%;
+    background-color: rgb(125, 54, 28);
+    padding: 16px;
+}
+
+#zig::after {
+    background: linear-gradient(-45deg,  #303628, 16px, transparent 0), linear-gradient(45deg,  #303628, 16px, transparent 0);
     background-position: left-bottom;
     background-repeat: repeat-x;
     background-size: 32px 32px;
@@ -69,7 +64,8 @@ button {
     width: 100%;
     height: 32px;
 }
-
+    
+    
 #modal {
     background-color: rgb(198, 242, 233);
     color: black;
@@ -87,10 +83,10 @@ button {
 }
 
 #game-container{
-    height: 84vh;
+    height: 77vh;
+    width: 100%;
     background-color: #303628;
     color: white;
-    border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,10 +98,18 @@ button {
 #title {
     margin: 0;
     font-size: 50px;
-    color: white;
+    
 }
 
 #actions {
+    position: relative;
+    top: -87px;
+    display: flex;
+    flex-direction: row;
+    gap: 49px;
+}
+
+#punks {
     display: flex;
     flex-direction: row;
     gap: 40px;
@@ -122,6 +126,27 @@ button {
 }
 
 /* layer 4 */
+.action {
+    width: 101px;
+    height: 60px;
+    background-color: rgb(224, 172, 95, 0.3); 
+    font-weight: bold;
+    border-radius: 82px;
+    border: none;
+    /* margin: 20px; */
+}
+
+.action:hover  {
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: rgb(227 192 138 / 40%);
+    box-shadow: 0px 0px 10px 11px rgb(224 172 95/ 40%);
+}
+
+#punk {
+    width: 110px; 
+    height: 80px; 
+}
 .gameTile {
     height: 100%;
     width: 100%;
@@ -130,6 +155,12 @@ button {
     border: 3px solid black;
     font-size: 130px;
 }
+
+.gameTile:hover {
+    background-color: rgb(125, 54, 28);
+}
+
+
 
 
 
