@@ -34,7 +34,65 @@
 
 
 
-/* layer 2 */
+
+/* Components */
+
+/* popup */
+#modal {
+background-color: rgb(144, 92, 66);
+color: black;
+padding: 10px;
+width: clamp(300px, 480px, 500px);
+height: clamp(150px, 170px, 300px);
+margin: 6vh;
+border-radius: 8px;
+box-shadow: 10px 9px 14px 7px rgb(8 8 8);
+display: flex;
+flex-direction: column;
+align-content: center;
+align-items: center;
+justify-content: center;
+}
+
+#pvpForm {
+    padding: 20px;
+    display: none;
+    /* display: grid; */
+    grid-template: 1fr 1fr 2fr / 1fr 2fr;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#pvcForm {
+    padding: 20px;
+    display: none;
+    /* display: grid; */
+    grid-template: 1fr 1fr 2fr / 1fr 2fr r;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.modalButton {
+    width: 100px;
+    grid-area: 3 / 1 / 4 / 3;
+}
+.radioButtons {
+    grid-area: 2 / 2 / 3 / 3;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.radioX, 
+.radioO  {
+    width: 65px;
+}
+
+
+
+/* header */
 #header  {
     display: flex;
     flex-direction: column;
@@ -42,7 +100,6 @@
     align-items: center;
     gap: 20px;
 }
-
 #zig {
     position: relative;
     height: 23vh;
@@ -50,7 +107,6 @@
     background-color: rgb(125, 54, 28);
     padding: 16px;
 }
-
 #zig::after {
     background: linear-gradient(-45deg,  #303628, 16px, transparent 0), linear-gradient(45deg,  #303628, 16px, transparent 0);
     background-position: left-bottom;
@@ -64,41 +120,21 @@
     width: 100%;
     height: 32px;
 }
-    
-    
-#modal {
-    background-color: rgb(198, 242, 233);
-    color: black;
-    padding: 10px;
-    width: 70vw;
-    height: 20vh;
-    margin: 6vh;
-    border-radius: 8px;
-    box-shadow: 10px 9px 14px 7px rgb(8 8 8);
-    display: none;
-    /* display: flex; */
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-}
 
-#game-container{
-    height: 77vh;
-    width: 100%;
-    background-color: #303628;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-/* layer 3 */
 #title {
     margin: 0;
     font-size: 50px;
     
+}
+
+#punks {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+#punk {
+    width: 110px; 
+    height: 80px; 
 }
 
 #actions {
@@ -108,11 +144,33 @@
     flex-direction: row;
     gap: 49px;
 }
+.action {
+    width: 101px;
+    height: 60px;
+    background-color: rgb(224, 172, 95, 0.3); 
+    font-weight: bold;
+    border-radius: 82px;
+    border: none;
+    /* margin: 20px; */
+}
+.action:hover  {
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: rgb(227 192 138 / 40%);
+    box-shadow: 0px 0px 10px 11px rgb(224 172 95/ 40%);
+}
 
-#punks {
+
+
+/* game */
+#game-container{
+    height: 77vh;
+    width: 100%;
+    background-color: #303628;
+    color: white;
     display: flex;
-    flex-direction: row;
-    gap: 40px;
+    justify-content: center;
+    align-items: center;
 }
 
 #game {
@@ -125,28 +183,6 @@
     border-radius: 0px;
 }
 
-/* layer 4 */
-.action {
-    width: 101px;
-    height: 60px;
-    background-color: rgb(224, 172, 95, 0.3); 
-    font-weight: bold;
-    border-radius: 82px;
-    border: none;
-    /* margin: 20px; */
-}
-
-.action:hover  {
-    cursor: pointer;
-    border-radius: 12px;
-    background-color: rgb(227 192 138 / 40%);
-    box-shadow: 0px 0px 10px 11px rgb(224 172 95/ 40%);
-}
-
-#punk {
-    width: 110px; 
-    height: 80px; 
-}
 .gameTile {
     height: 100%;
     width: 100%;

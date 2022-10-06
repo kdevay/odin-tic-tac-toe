@@ -11,7 +11,34 @@
 </head>
 <body>
     <div id="modal-shadow">
-        <div id="modal"></div>
+        <div id="modal">
+            <div id="pvpForm">
+                <label for="playerX">Player X:</label>
+                <input type="text" id="playerX" value="name">
+                <label for="playerO">Player O:</label>
+                <input type="text" id="playerO" value="name">
+                <button id="m-pvp" class="modalButton">new game</button>
+            </div>
+
+            <div id="pvcForm">
+                <label for="name">Name: </label>
+                <input type="text" id="name" value="name">
+                <p>Mark:</p>
+                <div class="radioButtons">
+                    <div class="radioX">
+                        <label for="radioX">X &nbsp;</label>
+                        <input type="radio" id="radioX" value="X">
+                    </div>
+    
+                    <div class="radioO">
+                        <label  for="radioO">O &nbsp;</label>
+                        <input type="radio" id="radioO" value="O">
+                    </div>
+                </div>
+
+                <button id="m-pvc" class="modalButton">new game</button>
+            </div>
+        </div>
     </div>
     <div id="content">
         <div id="zig">
@@ -31,15 +58,15 @@
         </div>
         <div id="game-container">
             <div id="game">
-                <button class="gameTile" id="t1">✕</button>
-                <button class="gameTile" id="t2">✕</button>
-                <button class="gameTile" id="t3">✕</button>
-                <button class="gameTile" id="m1">✕</button>
-                <button class="gameTile" id="m2">✕</button>
-                <button class="gameTile" id="m3">✕</button>
-                <button class="gameTile" id="b1">✕</button>
-                <button class="gameTile" id="b2">✕</button>
-                <button class="gameTile" id="b3">✕</button>
+                <button class="gameTile" id="t0"> </button>
+                <button class="gameTile" id="t1"> </button>
+                <button class="gameTile" id="t2"> </button>
+                <button class="gameTile" id="t3"> </button>
+                <button class="gameTile" id="t4"> </button>
+                <button class="gameTile" id="t5"> </button>
+                <button class="gameTile" id="t6"> </button>
+                <button class="gameTile" id="t7"> </button>
+                <button class="gameTile" id="t8"> </button>
             </div>
         </div>
     </div>
