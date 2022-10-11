@@ -7,6 +7,9 @@
     <script src="main.js" defer=""></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter+Tight&display=swap" rel="stylesheet">
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
@@ -14,10 +17,10 @@
         <div id="modal">
             <div id="pvpForm">
                 <label for="playerX">Player X:</label>
-                <input type="text" id="playerX" value="name">
+                <input required type="text" id="playerX" placeholder="name">
                 <label for="playerO">Player O:</label>
-                <input type="text" id="playerO" value="name">
-                <button id="m-pvp" class="modalButton">new game</button>
+                <input required type="text" id="playerO" placeholder="name">
+                <button id="modal2" class="modalButton">new game</button>
             </div>
 
             <div id="pvcForm">
@@ -27,23 +30,31 @@
                 <div class="radioButtons">
                     <div class="radioX">
                         <label for="radioX">X &nbsp;</label>
-                        <input type="radio" id="radioX" value="X">
+                        <input name="mark" type="radio" id="radioX" value="X">
                     </div>
-    
                     <div class="radioO">
                         <label  for="radioO">O &nbsp;</label>
-                        <input type="radio" id="radioO" value="O">
+                        <input name="mark" type="radio" id="radioO" value="O">
                     </div>
                 </div>
+                <button id="modal1" class="modalButton">new game</button>
+            </div>
 
-                <button id="m-pvc" class="modalButton">new game</button>
+            <div id="winDiv">
+                <p id="winner"> </p>&nbsp;
+                <p>wins!</p>
+            </div>
+            <div id="tieDiv">
+                <p>It's a tie!</p>
             </div>
         </div>
     </div>
     <div id="content">
         <div id="zig">
             <div id="header">
-                <h1 id="title">Tic-Tac-Toe</h1>
+                <div id="title-cont">
+                    <h1 id="title">Tic-Tac-Toe</h1>
+                </div>
                 <div id="punks">
                     <img id="punk" src="punkin.png">
                     <img id="punk" src="punkin.png">

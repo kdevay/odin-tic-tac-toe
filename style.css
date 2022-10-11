@@ -16,7 +16,7 @@
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
     /* display: flex; */
     flex-direction: column;
     align-content: center;
@@ -39,26 +39,25 @@
 
 /* popup */
 #modal {
-background-color: rgb(144, 92, 66);
-color: black;
-padding: 10px;
-width: clamp(300px, 480px, 500px);
-height: clamp(150px, 170px, 300px);
-margin: 6vh;
-border-radius: 8px;
-box-shadow: 10px 9px 14px 7px rgb(8 8 8);
-display: flex;
-flex-direction: column;
-align-content: center;
-align-items: center;
-justify-content: center;
+    background-color:rgb(141, 131, 166);
+    padding: 10px;
+    width: clamp(300px, 480px, 500px);
+    height: clamp(150px, 170px, 300px);
+    margin: 6vh;
+    border-radius: 8px;
+    box-shadow: 10px 9px 14px 7px rgb(8 8 8);
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 #pvpForm {
     padding: 20px;
     display: none;
     /* display: grid; */
-    grid-template: 1fr 1fr 2fr / 1fr 2fr;
+    grid-template: 2fr 2fr 5fr / 1fr 2fr;
     justify-items: center;
     justify-content: center;
     align-items: center;
@@ -74,10 +73,28 @@ justify-content: center;
     align-items: center;
     gap: 10px;
 }
+#winDiv, 
+#tieDiv {
+    font-size: 40px;
+    padding: 20px;
+    display: none;
+    /* display: flex; */
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
 
+#modal2{
+    margin-top: 15px;
+}
 .modalButton {
+    color: white;
     width: 100px;
     grid-area: 3 / 1 / 4 / 3;
+    background-color: #24291d;
+    border-radius: 30px;
+    border: none;
+    height: 40px;
 }
 .radioButtons {
     grid-area: 2 / 2 / 3 / 3;
@@ -98,14 +115,14 @@ justify-content: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    /* gap: 20px; */
 }
 #zig {
     position: relative;
     height: 23vh;
     width: 100%;
-    background-color: rgb(125, 54, 28);
-    padding: 16px;
+    background-color: black;
+    padding: 30px;
 }
 #zig::after {
     background: linear-gradient(-45deg,  #303628, 16px, transparent 0), linear-gradient(45deg,  #303628, 16px, transparent 0);
@@ -121,11 +138,17 @@ justify-content: center;
     height: 32px;
 }
 
-#title {
-    margin: 0;
-    font-size: 50px;
-    
+#title-cont {
+    height: 90px;
 }
+#title {
+    /* color: rgb(205, 167, 96); */
+    color:  #505846;
+    font-family: 'Creepster';
+    margin: 0;
+    font-size: 80px;
+}
+
 
 #punks {
     display: flex;
@@ -139,7 +162,7 @@ justify-content: center;
 
 #actions {
     position: relative;
-    top: -87px;
+    top: -66px;
     display: flex;
     flex-direction: row;
     gap: 49px;
@@ -186,7 +209,8 @@ justify-content: center;
 .gameTile {
     height: 100%;
     width: 100%;
-    background-color: #505846;
+    background-color:rgb(54 47 70);
+    /* background-color: #505846; */
     border-radius: 0px;
     border: 3px solid black;
     font-size: 130px;
