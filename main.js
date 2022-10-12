@@ -9,11 +9,11 @@ const tieDiv = document.getElementById('tieDiv');
 
 // Opens 2-Player form
 function toggleModal(e) {
-    // Prevent form submission
-    e.preventDefault()
-    // Display shadow
-    if (e.target.getAttribute('id') === 'modal-shadow'){
-        // close modal
+    e.preventDefault() // Prevent form submission
+    const id = e.target.getAttribute('id'); // get id
+
+    // Hide modal
+    if (id === 'modal-shadow' || id === 'modal2' || id === 'modal1') {
         shadow.style.display = 'none';
         modal.style.display = 'none';
         pvpForm.style.display = 'none';
@@ -22,22 +22,23 @@ function toggleModal(e) {
         tieDiv.style.display = 'none';
         return;
     }
+    // Display modal
     shadow.style.display = 'block';
-    if (e.target.getAttribute('id') === 'pvp') {
+    if (id === 'pvp') {
         // Display 2 player form
         modal.style.display = 'flex';
         pvpForm.style.display = 'grid';
         return;
     }
-    // Display 1 plater form
+    // Display 1 player form
     modal.style.display = 'flex';
     pvcForm.style.display = 'grid'
 }
 
 // Open modals on button click
-const pvpButton = document.getElementById('pvp');// 2-Player
+const pvpButton = document.getElementById('pvp'); // 2-Player
 pvpButton.addEventListener('click', toggleModal);
-const pvcButton = document.getElementById('pvc');// 1-Player
+const pvcButton = document.getElementById('pvc'); // 1-Player
 pvcButton.addEventListener('click', toggleModal);
 
 // Close modal on shadow click
@@ -120,11 +121,6 @@ const gameFlow = {
     players: {},
 
     getPlayers(button) {    
-        shadow.style.display = 'none'; // hide modal
-        modal.style.display = 'none';
-        pvpForm.style.display = 'none'; // hide form
-        
-        
         if (button.getAttribute('id') === 'modal2') { // If 2-player
             const players = {
                 player1: { name: document.getElementById('playerX').value, mark: 'skull'},
@@ -153,9 +149,26 @@ const gameFlow = {
     },
 
     startGame(e) {
+        // Prevent form submission
+        e.preventDefault()
+
+        let button = e.target; 
+
+        let players = gameFlow.getPlayers(button);
+
+        if (!players.player1.name || !players.player2.name) {
+            if (button.getAttribute('id') === 'modal2') {// Show error
+                console.log('fuckity')
+                document.getElementById('error2').style.display = 'block';
+                return;
+            }
+            console.log('binch')
+            document.getElementById('error1').style.display = 'block';
+            return;
+        }
+        toggleModal(e);
         gameFlow.resetGame(); // Reset Game
-        let button = e.target; // Fill players object
-        gameFlow.players = gameFlow.getPlayers(button);
+        gameFlow.players = players;// Fill players object
         for (let i = 0; i < 9; i++){ // Add event listeners to game pieces
             gameBoard.tiles[i].addEventListener('click', gameFlow.addMark);
         }

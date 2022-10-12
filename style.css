@@ -71,7 +71,7 @@ button:hover {
     padding: 20px;
     display: none;
     /* display: grid; */
-    grid-template: 2fr 2fr 5fr / 1fr 2fr;
+    grid-template: 1fr 1fr 0px 2fr / 1fr 2fr;
     justify-items: center;
     justify-content: center;
     align-items: center;
@@ -104,7 +104,7 @@ button:hover {
 .modalButton {
     color: white;
     width: 100px;
-    grid-area: 3 / 1 / 4 / 3;
+    grid-area: 4 / 1 / 5 / 3;
     background-color: #24291d;
     border-radius: 30px;
     border: none;
@@ -132,6 +132,12 @@ button:hover {
 #radioX, 
 #radioO:hover {
     cursor: pointer;
+}
+#error2, 
+#error1 {
+    color: rgb(52, 0, 0);
+    display: none;
+    grid-area: 3 / 1 / 4/ 3;
 }
 
 
