@@ -12,9 +12,9 @@
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
     /* display: flex; */
@@ -22,6 +22,10 @@
     align-content: center;
     align-items: center;
 }
+#modal-shadow:hover {
+    cursor: pointer;
+}
+
 
 #content {
     width: 100%;
@@ -46,7 +50,10 @@
     margin: 6vh;
     border-radius: 8px;
     box-shadow: 10px 9px 14px 7px rgb(8 8 8);
-    display: flex;
+    display: none;
+    /* display: flex; */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
     flex-direction: column;
     align-content: center;
     align-items: center;
@@ -106,6 +113,11 @@
 .radioO  {
     width: 65px;
 }
+.modalButton ,
+.radioX, 
+.radioO:hover {
+    cursor: pointer;
+}
 
 
 
@@ -161,6 +173,8 @@
 }
 
 #actions {
+    font-family: 'Wendy One';
+    font-size: 20px;
     position: relative;
     top: -66px;
     display: flex;
@@ -218,10 +232,14 @@
 
 .gameTile:hover {
     background-color: rgb(125, 54, 28);
+    cursor: pointer;
 }
 
 
 
 
 
-/* grid-row-start / grid-column-start / grid-row-end / grid-column-end */
+/* 
+    * a nice ux addition would be to let the computer player 'think' before they move
+    -- look into setTimeout to delay a function's execution
+*/

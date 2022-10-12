@@ -1,5 +1,6 @@
 // Import modal elements
 const shadow = document.getElementById('modal-shadow');
+const modal = document.getElementById('modal');
 const pvpForm = document.getElementById('pvpForm');
 const pvcForm = document.getElementById('pvcForm');
 const winDiv = document.getElementById('winDiv');
@@ -7,27 +8,40 @@ const tieDiv = document.getElementById('tieDiv');
 
 
 // Opens 2-Player form
-function openModal(e) {
+function toggleModal(e) {
     // Prevent form submission
     e.preventDefault()
     // Display shadow
+    if (e.target.getAttribute('id') === 'modal-shadow'){
+        // close modal
+        shadow.style.display = 'none';
+        modal.style.display = 'none';
+        pvpForm.style.display = 'none';
+        pvcForm.style.display = 'none';
+        winDiv.style.display = 'none';
+        tieDiv.style.display = 'none';
+        return;
+    }
     shadow.style.display = 'flex';
-
     if (e.target.getAttribute('id') === 'pvp') {
         // Display 2 player form
+        modal.style.display = 'flex';
         pvpForm.style.display = 'grid';
         return;
     }
     // Display 1 plater form
+    modal.style.display = 'flex';
     pvcForm.style.display = 'grid'
 }
 
-// Import buttons that open modals
+// Open modals on button click
 const pvpButton = document.getElementById('pvp');// 2-Player
-pvpButton.addEventListener('click', openModal);
+pvpButton.addEventListener('click', toggleModal);
 const pvcButton = document.getElementById('pvc');// 1-Player
-pvcButton.addEventListener('click', openModal);
+pvcButton.addEventListener('click', toggleModal);
 
+// Close modal on shadow click
+shadow.addEventListener('click', toggleModal)
 
 // An object that stores the game board & its actions
 const gameBoard = {
@@ -84,24 +98,25 @@ const counter = {
 const gameFlow = {
     players: {},
 
-    getPlayers(button) {
-        
+    getPlayers(button) {    
         shadow.style.display = 'none'; // hide modal
+        modal.style.display = 'none';
+        pvpForm.style.display = 'none'; // hide form
+        
         
         if (button.getAttribute('id') === 'modal2') { // If 2-player
             const players = {
-                player1: { name: document.getElementById('playerX').value, mark: 'X'},
-                player2: { name: document.getElementById('playerO').value, mark: 'O'},
+                player1: { name: document.getElementById('playerX').value, mark: '✕'},
+                player2: { name: document.getElementById('playerO').value, mark: '◯'},
             }
-            pvpForm.style.display = 'none'; // hide form
             return players;
         
         }
         const name = document.getElementById('name').value // If 1-player
         const isX = document.getElementById('radioX').checked;
         const players = {
-            player1: {name, mark: (isX ? 'X' : 'O')},
-            player2: { name: 'computer', mark: (isX ? 'O' : 'X')},
+            player1: {name, mark: (isX ? '✕' : '◯')},
+            player2: { name: 'computer', mark: (isX ? '◯' : '✕')},
         }
         pvcForm.style.display = 'none'; // hide form
         return players;
@@ -253,6 +268,7 @@ const gameFlow = {
         if (gameBoard.availableTiles().length === 0){
             //display tie game element
             shadow.style.display = 'flex';
+            modal.style.display = 'flex';
             tieDiv.style.display = 'flex';
             return true;
         }
@@ -262,6 +278,7 @@ const gameFlow = {
     returnWinner(string) {
         // Open modal
         shadow.style.display = 'flex';
+        modal.style.display = 'flex';
         winDiv.style.display = 'flex';
 
         // Import winner display element
@@ -291,4 +308,3 @@ const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', gameFlow.resetGame);
 
 
-// use this for x's: ✕

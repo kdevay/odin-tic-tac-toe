@@ -7,46 +7,48 @@
     <script src="main.js" defer=""></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="normalize.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter+Tight&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Sigmar+One&family=Wendy+One&effect=emboss&display=swap" rel="stylesheet">
+    
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
     <div id="modal-shadow">
-        <div id="modal">
-            <div id="pvpForm">
-                <label for="playerX">Player X:</label>
-                <input required type="text" id="playerX" placeholder="name">
-                <label for="playerO">Player O:</label>
-                <input required type="text" id="playerO" placeholder="name">
-                <button id="modal2" class="modalButton">new game</button>
-            </div>
+    </div>
+    <div id="modal">
+        <div id="pvpForm">
+            <label for="playerX">Player X:</label>
+            <input required type="text" id="playerX" placeholder="name">
+            <label for="playerO">Player O:</label>
+            <input required type="text" id="playerO" placeholder="name">
+            <button id="modal2" class="modalButton">new game</button>
+        </div>
 
-            <div id="pvcForm">
-                <label for="name">Name: </label>
-                <input type="text" id="name" value="name">
-                <p>Mark:</p>
-                <div class="radioButtons">
-                    <div class="radioX">
-                        <label for="radioX">X &nbsp;</label>
-                        <input name="mark" type="radio" id="radioX" value="X">
-                    </div>
-                    <div class="radioO">
-                        <label  for="radioO">O &nbsp;</label>
-                        <input name="mark" type="radio" id="radioO" value="O">
-                    </div>
+        <div id="pvcForm">
+            <label for="name">Name: </label>
+            <input type="text" id="name" placeholder="name">
+            <p>Mark:</p>
+            <div class="radioButtons">
+                <div class="radioX">
+                    <label for="radioX">X &nbsp;</label>
+                    <input name="mark" type="radio" id="radioX" value="X">
                 </div>
-                <button id="modal1" class="modalButton">new game</button>
+                <div class="radioO">
+                    <label  for="radioO">O &nbsp;</label>
+                    <input name="mark" type="radio" id="radioO" value="O">
+                </div>
             </div>
+            <button id="modal1" class="modalButton">new game</button>
+        </div>
 
-            <div id="winDiv">
-                <p id="winner"> </p>&nbsp;
-                <p>wins!</p>
-            </div>
-            <div id="tieDiv">
-                <p>It's a tie!</p>
-            </div>
+        <div id="winDiv">
+            <p id="winner"> </p>&nbsp;
+            <p>wins!</p>
+        </div>
+        <div id="tieDiv">
+            <p>It's a tie!</p>
         </div>
     </div>
     <div id="content">
@@ -62,7 +64,7 @@
                 </div>
                 <div id="actions">
                     <button class="action" id="pvp">2 Player</button>
-                    <button class="action" id="pvc">Player vs Computer</button>
+                    <button class="action" id="pvc">1 Player</button>
                     <button class="action" id="reset">Reset</button>
                 </div>
             </div>
