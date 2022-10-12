@@ -22,7 +22,7 @@ function toggleModal(e) {
         tieDiv.style.display = 'none';
         return;
     }
-    shadow.style.display = 'flex';
+    shadow.style.display = 'block';
     if (e.target.getAttribute('id') === 'pvp') {
         // Display 2 player form
         modal.style.display = 'flex';
@@ -56,15 +56,32 @@ const gameBoard = {
         document.getElementById('t7'),
         document.getElementById('t8')
     ],
-    addText(index, string) {
-        this.tiles[index].textContent = string; 
+    getIcons(index) {
+        const ghost = document.getElementById('ghost' + index);
+        const skull = document.getElementById('skull' + index);
+        return {ghost, skull};
+    },
+    showIcon(index, string) {
+        const icons = this.getIcons(index);
+        if (string === 'skull'){
+            icons.skull.style.display = 'block'; 
+            return; 
+        }
+        icons.ghost.style.display = 'block'; 
+        return; 
+    }, 
+    clearIcons() { 
+        for (let i = 0; i < 9; i++){
+            let icons = this.getIcons(i); 
+            icons.skull.style.display = 'none'; 
+            icons.ghost.style.display = 'none'; 
+        }
         return; 
     },
-    clearText(index) { 
-        this.tiles[index].textContent = ' '; 
-        return; 
+    isAvailable(index) { 
+        console.log('entered isAvailable: ', index);
+        return this.tiles[index].getAttribute('class') === 'gameTile';
     },
-    isAvailable(index) {return this.tiles[index].textContent === ' ' ? true : false},
     availableTiles() { // return an array of all available tiles
         let availableTiles = [];
         for (let i = 0; i < 9; i++){
@@ -76,12 +93,16 @@ const gameBoard = {
     },
     hasWin(array) {
         // check if tiles are filled
-        let allAreFilled = !this.isAvailable(array[0]) && !this.isAvailable(array[1]) && !this.isAvailable(array[2]);
+        const allAreFilled = !this.isAvailable(array[0]) && !this.isAvailable(array[1]) && !this.isAvailable(array[2]);
         if (allAreFilled) { 
-            // check if content is matching
-            if(this.tiles[array[0]].textContent === this.tiles[array[1]].textContent && this.tiles[array[1]].textContent === this.tiles[array[2]].textContent) {
+            // check if icons are the same
+            const tile0isX = this.getIcons(array[0]).skull.style.display === 'block';
+            const tile1isX = this.getIcons(array[1]).skull.style.display === 'block';
+            const tile2isX = this.getIcons(array[2]).skull.style.display === 'block';
+            if ((tile0isX && tile1isX && tile2isX) || (!tile0isX && !tile1isX && !tile2isX)) {
                 return true;
             }
+            return false;
         }
         return false;
     }
@@ -106,8 +127,8 @@ const gameFlow = {
         
         if (button.getAttribute('id') === 'modal2') { // If 2-player
             const players = {
-                player1: { name: document.getElementById('playerX').value, mark: '✕'},
-                player2: { name: document.getElementById('playerO').value, mark: '◯'},
+                player1: { name: document.getElementById('playerX').value, mark: 'skull'},
+                player2: { name: document.getElementById('playerO').value, mark: 'ghost'},
             }
             return players;
         
@@ -115,17 +136,19 @@ const gameFlow = {
         const name = document.getElementById('name').value // If 1-player
         const isX = document.getElementById('radioX').checked;
         const players = {
-            player1: {name, mark: (isX ? '✕' : '◯')},
-            player2: { name: 'computer', mark: (isX ? '◯' : '✕')},
+            player1: {name, mark: (isX ? 'skull' : 'ghost')},
+            player2: { name: 'computer', mark: (isX ? 'ghost' : 'skull')},
         }
         pvcForm.style.display = 'none'; // hide form
         return players;
     },
 
     resetGame() {
-        for (let i = 0; i < 9; i++){
-            gameBoard.clearText(i); // clear tiles
-        }counter.reset(); // Reset counter
+        for (let i = 0; i < 9; i++) { // Clear styling
+            gameBoard.tiles[i].className = 'gameTile';
+        }
+        gameBoard.clearIcons(); // clear tiles
+        counter.reset(); // Reset counter
         gameFlow.players = {}; // Clear players object
     },
 
@@ -139,7 +162,8 @@ const gameFlow = {
     },
 
     computerMove() {
-        let tiles = gameBoard.availableTiles(); // Create array of available tiles
+        console.log('entered computer move')
+        let tiles = gameBoard.availableTiles(); // Get array of available tiles
         let choice = Math.floor(Math.random() * tiles.length); // Create random number <= length of array
         return tiles[choice]; // return random number as tile index
     },
@@ -160,12 +184,13 @@ const gameFlow = {
         if (!gameBoard.isAvailable(index)){
             return;
         }
-
+        // Change background color
+        e.target.className = 'selectedTile';
         // If 1-player game
         if (player2.name === 'computer') {
 
             // Add mark to game tile & update counter
-            gameBoard.addText(index, player1.mark);
+            gameBoard.showIcon(index, player1.mark);
             counter.add()
 
             // Begin checking for winner if move count >= 5
@@ -184,17 +209,20 @@ const gameFlow = {
 
             // Get computer move
             let computerIndex = gameFlow.computerMove();
-            gameBoard.addText(computerIndex, player2.mark);
+            gameBoard.showIcon(computerIndex, player2.mark);
+            gameBoard.tiles[computerIndex].className = 'selectedTile';
             counter.add()
             //Check for winner again
             if (counter.count >= 5) {
                 if (gameFlow.hasWon()){
                     gameFlow.returnWinner(player2.mark);
+                    resetGame();
                     return;
                 }
                 if (counter.count === 9) {
                     // Check for tie
                     if (gameFlow.hasTie()) {
+                        resetGame();
                         return;
                     }
                 } 
@@ -211,18 +239,20 @@ const gameFlow = {
         }
 
         // Add mark to game tile & update counter
-        gameBoard.addText(index, currentPlayer.mark);
+        gameBoard.showIcon(index, currentPlayer.mark);
         counter.add()
 
         // Begin checking for winner if move count >= 5
         if (counter.count >= 5) {
             if (gameFlow.hasWon()){
                 gameFlow.returnWinner(currentPlayer.mark);
+                resetGame();
                 return;
             }
             if (counter.count === 9) {
                 // Check for tie
                 if (gameFlow.hasTie()) {
+                    resetGame();
                     return;
                 }
             } 
@@ -267,9 +297,10 @@ const gameFlow = {
         // If none of the tiles are available
         if (gameBoard.availableTiles().length === 0){
             //display tie game element
-            shadow.style.display = 'flex';
+            shadow.style.display = 'block';
             modal.style.display = 'flex';
             tieDiv.style.display = 'flex';
+            resetGame();
             return true;
         }
         return false;
@@ -277,7 +308,7 @@ const gameFlow = {
     
     returnWinner(string) {
         // Open modal
-        shadow.style.display = 'flex';
+        shadow.style.display = 'block';
         modal.style.display = 'flex';
         winDiv.style.display = 'flex';
 
@@ -290,10 +321,11 @@ const gameFlow = {
 
         if (player1.mark === string){
             winner.textContent = player1.name;
+            resetGame();
             return;
         }
         winner.textContent = player2.name;
-        // id of winning p = winner
+        resetGame();
         return;
     }
 };
