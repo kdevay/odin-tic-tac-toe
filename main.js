@@ -216,13 +216,13 @@ const gameFlow = {
             if (counter.count >= 5) {
                 if (gameFlow.hasWon()){
                     gameFlow.returnWinner(player2.mark);
-                    resetGame();
+                    gameFlow.resetGame();
                     return;
                 }
                 if (counter.count === 9) {
                     // Check for tie
                     if (gameFlow.hasTie()) {
-                        resetGame();
+                        gameFlow.resetGame();
                         return;
                     }
                 } 
@@ -246,13 +246,13 @@ const gameFlow = {
         if (counter.count >= 5) {
             if (gameFlow.hasWon()){
                 gameFlow.returnWinner(currentPlayer.mark);
-                resetGame();
+                gameFlow.resetGame();
                 return;
             }
             if (counter.count === 9) {
                 // Check for tie
                 if (gameFlow.hasTie()) {
-                    resetGame();
+                    gameFlow.resetGame();
                     return;
                 }
             } 
@@ -300,7 +300,6 @@ const gameFlow = {
             shadow.style.display = 'block';
             modal.style.display = 'flex';
             tieDiv.style.display = 'flex';
-            resetGame();
             return true;
         }
         return false;
@@ -321,11 +320,9 @@ const gameFlow = {
 
         if (player1.mark === string){
             winner.textContent = player1.name;
-            resetGame();
             return;
         }
         winner.textContent = player2.name;
-        resetGame();
         return;
     }
 };
