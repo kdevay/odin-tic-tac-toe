@@ -197,11 +197,13 @@ const gameFlow = {
             if (counter.count >= 5) {
                 if (gameFlow.hasWon()){
                     gameFlow.returnWinner(player1.mark);
+                    gameFlow.resetGame();
                     return;
                 }
                 if (counter.count === 9) {
                     // Check for tie
                     if (gameFlow.hasTie()) {
+                        gameFlow.resetGame();
                         return;
                     }
                 } 
