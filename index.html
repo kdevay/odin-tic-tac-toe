@@ -19,25 +19,27 @@
     </div>
     <div id="modal">
         <div id="pvpForm">
-            <label for="playerX">Player X:</label>
+            <label class="iconLabel" for="playerX"><img class="smolSkull" src="skully.png"></label>
             <input required type="text" id="playerX" placeholder="name">
-            <label for="playerO">Player O:</label>
+            <label class="iconLabel" for="playerO"><img class="smolG" src="ghostie.png"></label>
             <input required type="text" id="playerO" placeholder="name">
             <p id="error2">All fields must be filled!</p>
             <button id="modal2" class="modalButton">new game</button>
         </div>
 
+        
+
+
         <div id="pvcForm">
-            <label for="name">Name: </label>
-            <input type="text" id="name" placeholder="name">
-            <p>Mark:</p>
+            <label class="pvcN" for="name">Name </label>
+            <input type="text" id="name">
             <div class="radioButtons">
                 <div class="radioX">
-                    <label for="radioX">X &nbsp;</label>
+                    <label class="iconLabel" for="radioX"><img class="smolSkull" src="skully.png">&nbsp;</label>
                     <input name="mark" type="radio" id="radioX" value="X">
                 </div>
                 <div class="radioO">
-                    <label  for="radioO">O &nbsp;</label>
+                    <label  class="iconLabel" for="radioO"><img class="smolG" src="ghostie.png">&nbsp;</label>
                     <input name="mark" type="radio" id="radioO" value="O">
                 </div>
             </div>
