@@ -120,8 +120,8 @@ const counter = {
 const gameFlow = {
     players: {},
 
-    getPlayers(button) {    
-        if (button.getAttribute('id') === 'modal2') { // If 2-player
+    getPlayers(id) {    
+        if (id === 'modal2') { // If 2-player
             const players = {
                 player1: { name: document.getElementById('playerX').value, mark: 'skull'},
                 player2: { name: document.getElementById('playerO').value, mark: 'ghost'},
@@ -135,7 +135,6 @@ const gameFlow = {
             player1: {name, mark: (isX ? 'skull' : 'ghost')},
             player2: { name: 'computer', mark: (isX ? 'ghost' : 'skull')},
         }
-        pvcForm.style.display = 'none'; // hide form
         return players;
     },
 
@@ -151,13 +150,11 @@ const gameFlow = {
     startGame(e) {
         // Prevent form submission
         e.preventDefault()
-
-        let button = e.target; 
-
-        let players = gameFlow.getPlayers(button);
+        let id = e.target.getAttribute('id'); 
+        let players = gameFlow.getPlayers(id);
 
         if (!players.player1.name || !players.player2.name) {
-            if (button.getAttribute('id') === 'modal2') {// Show error
+            if (id === 'modal2') {// Show error
                 console.log('fuckity')
                 document.getElementById('error2').style.display = 'block';
                 return;
@@ -166,6 +163,7 @@ const gameFlow = {
             document.getElementById('error1').style.display = 'block';
             return;
         }
+
         toggleModal(e);
         gameFlow.resetGame(); // Reset Game
         gameFlow.players = players;// Fill players object

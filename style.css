@@ -67,7 +67,8 @@ button:hover {
     justify-content: center;
 }
 
-#pvpForm {
+#pvpForm,
+#pvcForm {
     padding: 20px;
     display: none;
     /* display: grid; */
@@ -76,16 +77,6 @@ button:hover {
     justify-content: center;
     align-items: center;
     gap: 10px;
-}
-#pvcForm {
-    padding: 20px;
-    display: none;
-    /* display: grid; */
-    grid-template: 2fr 2fr 5fr / 1fr 2fr;
-    justify-items: center;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
 }
 #winDiv, 
 #tieDiv {
