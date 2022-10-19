@@ -1,4 +1,5 @@
 // Import modal elements
+// 
 const shadow = document.getElementById('modal-shadow');
 const modal = document.getElementById('modal');
 const pvpForm = document.getElementById('pvpForm');
