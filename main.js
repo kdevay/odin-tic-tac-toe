@@ -1,4 +1,4 @@
-// Import modal elements
+// Get modal elements
 const shadow = document.getElementById('modal-shadow');
 const modal = document.getElementById('modal');
 const pvpForm = document.getElementById('pvpForm');
@@ -46,7 +46,7 @@ shadow.addEventListener('click', toggleModal)
 
 // An object that stores the game board & its actions
 const gameBoard = {
-    tiles: [   
+    tiles: [   // getElementsByClassName //////////////////////////////////////
         document.getElementById('t0'),
         document.getElementById('t1'),
         document.getElementById('t2'),
@@ -80,20 +80,12 @@ const gameBoard = {
         return; 
     },
     isAvailable(index) { 
-        console.log('entered isAvailable: ', index);
         return this.tiles[index].getAttribute('class') === 'gameTile';
     },
-    availableTiles() { // return an array of all available tiles
-        let availableTiles = [];
-        for (let i = 0; i < 9; i++){
-            if (this.isAvailable(i)){
-                availableTiles.push(i);
-            }
-        }
-        return availableTiles;
-    },
+    availableTiles() { this.tiles.filter(tile => tile.getAttribute('class') === 'gameTile') },
     hasWin(array) {
         // check if tiles are filled
+        // use filter method to check if tiles in the array (arg) are filled
         const allAreFilled = !this.isAvailable(array[0]) && !this.isAvailable(array[1]) && !this.isAvailable(array[2]);
         if (allAreFilled) { 
             // check if icons are the same
@@ -155,11 +147,9 @@ const gameFlow = {
 
         if (!players.player1.name || !players.player2.name) {
             if (id === 'modal2') {// Show error
-                console.log('fuckity')
                 document.getElementById('error2').style.display = 'block';
                 return;
             }
-            console.log('binch')
             document.getElementById('error1').style.display = 'block';
             return;
         }
@@ -173,7 +163,6 @@ const gameFlow = {
     },
 
     computerMove() {
-        console.log('entered computer move')
         let tiles = gameBoard.availableTiles(); // Get array of available tiles
         let choice = Math.floor(Math.random() * tiles.length); // Create random number <= length of array
         return tiles[choice]; // return random number as tile index
@@ -204,20 +193,14 @@ const gameFlow = {
             gameBoard.showIcon(index, player1.mark);
             counter.add()
 
-            // Begin checking for winner if move count >= 5
-            if (counter.count >= 5) {
-                if (gameFlow.hasWon()){
-                    gameFlow.returnWinner(player1.mark);
-                    gameFlow.resetGame();
-                    return;
-                }
-                if (counter.count === 9) {
-                    // Check for tie
-                    if (gameFlow.hasTie()) {
-                        gameFlow.resetGame();
-                        return;
-                    }
-                } 
+            // Check for win/tie
+            if (gameFlow.hasWon()){
+                gameFlow.returnWinner(player1.mark);
+                gameFlow.resetGame();
+                return;
+            } else if (gameFlow.hasTie()) {
+                gameFlow.resetGame();
+                return;
             }
 
             // Get computer move
@@ -225,20 +208,15 @@ const gameFlow = {
             gameBoard.showIcon(computerIndex, player2.mark);
             gameBoard.tiles[computerIndex].className = 'selectedTile';
             counter.add()
-            //Check for winner again
-            if (counter.count >= 5) {
-                if (gameFlow.hasWon()){
-                    gameFlow.returnWinner(player2.mark);
-                    gameFlow.resetGame();
-                    return;
-                }
-                if (counter.count === 9) {
-                    // Check for tie
-                    if (gameFlow.hasTie()) {
-                        gameFlow.resetGame();
-                        return;
-                    }
-                } 
+
+            // Check for winner/tie again
+            if (gameFlow.hasWon()){
+                gameFlow.returnWinner(player2.mark);
+                gameFlow.resetGame();
+                return;
+            } else if (gameFlow.hasTie()) {
+                gameFlow.resetGame();
+                return;
             }
             return;
         }
@@ -255,21 +233,17 @@ const gameFlow = {
         gameBoard.showIcon(index, currentPlayer.mark);
         counter.add()
 
-        // Begin checking for winner if move count >= 5
-        if (counter.count >= 5) {
-            if (gameFlow.hasWon()){
-                gameFlow.returnWinner(currentPlayer.mark);
-                gameFlow.resetGame();
-                return;
-            }
-            if (counter.count === 9) {
-                // Check for tie
-                if (gameFlow.hasTie()) {
-                    gameFlow.resetGame();
-                    return;
-                }
-            } 
+        // Check for win/tie
+        if (gameFlow.hasWon()){
+            gameFlow.returnWinner(currentPlayer.mark);
+            gameFlow.resetGame();
+            return;
         }
+        else if (gameFlow.hasTie()) {
+            gameFlow.resetGame();
+            return;
+        }
+
 
         // If player2 is computer
         return;
@@ -277,14 +251,14 @@ const gameFlow = {
     
     hasWon()  {
         const winCases = {
-            horizontalTop: [0, 1, 2],
-            horizontalMid: [3, 4, 5],
-            horizontalBot: [6, 7, 8],
-            verticalTop: [0, 3, 6],
-            verticalMid: [1, 4, 7],
-            verticalBot: [2, 5, 8],
-            diagonalL: [0, 4, 8],
-            diagonalR: [6, 4, 2],
+            horizontalTop: [gameBoard.tiles[0], gameBoard.tiles[1], gameBoard.tiles[2]],
+            horizontalMid: [gameBoard.tiles[3], gameBoard.tiles[4], gameBoard.tiles[5]],
+            horizontalBot: [gameBoard.tiles[6], gameBoard.tiles[7], gameBoard.tiles[8]],
+            verticalTop: [gameBoard.tiles[0], gameBoard.tiles[3], gameBoard.tiles[6]],
+            verticalMid: [gameBoard.tiles[1], gameBoard.tiles[4], gameBoard.tiles[7]],
+            verticalBot: [gameBoard.tiles[2], gameBoard.tiles[5], gameBoard.tiles[8]],
+            diagonalL: [gameBoard.tiles[0], gameBoard.tiles[4], gameBoard.tiles[8]],
+            diagonalR: [gameBoard.tiles[6], gameBoard.tiles[4], gameBoard.tiles[2]],
             isWin(array) {return gameBoard.hasWin(array)}
         }
         if (winCases.isWin(winCases.horizontalTop)) {
