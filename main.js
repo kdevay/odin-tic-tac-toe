@@ -79,7 +79,7 @@ const gameBoard = {
         }
         return; 
     },
-    availableTiles() { this.tiles.filter(tile => tile.getAttribute('class') === 'gameTile') },
+    availableTiles() { return gameBoard.tiles.filter(tile => tile.getAttribute('class') === 'gameTile') },
     hasWin(array) {
         // check if tiles are filled
         const oTiles = this.availableTiles();
@@ -181,7 +181,7 @@ const gameFlow = {
         const index = e.target.getAttribute('id').substring(1);
         // Ensure space is available
         const openTiles = gameBoard.availableTiles();
-        if (!openTiles.filter(openTile => openTile === gameBoard.tiles[index])){
+        if (!(openTiles.filter(openTile => openTile === gameBoard.tiles[index]))){
             return;
         }
         // Change background color
