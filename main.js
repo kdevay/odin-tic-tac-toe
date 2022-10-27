@@ -79,20 +79,19 @@ const gameBoard = {
         }
         return; 
     },
-    isAvailable(index) { 
-        return this.tiles[index].getAttribute('class') === 'gameTile';
-    },
     availableTiles() { this.tiles.filter(tile => tile.getAttribute('class') === 'gameTile') },
     hasWin(array) {
         // check if tiles are filled
-        // use filter method to check if tiles in the array (arg) are filled
-        const allAreFilled = !this.isAvailable(array[0]) && !this.isAvailable(array[1]) && !this.isAvailable(array[2]);
-        if (allAreFilled) { 
+        const oTiles = this.availableTiles();
+        const firstIsFilled = !oTiles.filter(oTile => oTile === array[0]);
+        const midIsFilled = !oTiles.filter(oTile => oTile === array[1]);
+        const lastIsFilled = !oTiles.filter(oTile => oTile === array[2]);
+        if (firstIsFilled && midIsFilled && lastIsFilled) { 
             // check if icons are the same
-            const tile0isX = this.getIcons(array[0]).skull.style.display === 'block';
-            const tile1isX = this.getIcons(array[1]).skull.style.display === 'block';
-            const tile2isX = this.getIcons(array[2]).skull.style.display === 'block';
-            if ((tile0isX && tile1isX && tile2isX) || (!tile0isX && !tile1isX && !tile2isX)) {
+            const firstIsX = this.getIcons(array[3]).skull.style.display === 'block';
+            const midIsX = this.getIcons(array[4]).skull.style.display === 'block';
+            const lastIsX = this.getIcons(array[5]).skull.style.display === 'block';
+            if ((firstIsX && midIsX && lastIsX) || (!firstIsX && !midIsX && !lastIsX)) {
                 return true;
             }
             return false;
@@ -181,7 +180,8 @@ const gameFlow = {
         // Find tile index from button id
         const index = e.target.getAttribute('id').substring(1);
         // Ensure space is available
-        if (!gameBoard.isAvailable(index)){
+        const openTiles = gameBoard.availableTiles();
+        if (!openTiles.filter(openTile => openTile === gameBoard.tiles[index])){
             return;
         }
         // Change background color
@@ -251,14 +251,14 @@ const gameFlow = {
     
     hasWon()  {
         const winCases = {
-            horizontalTop: [gameBoard.tiles[0], gameBoard.tiles[1], gameBoard.tiles[2]],
-            horizontalMid: [gameBoard.tiles[3], gameBoard.tiles[4], gameBoard.tiles[5]],
-            horizontalBot: [gameBoard.tiles[6], gameBoard.tiles[7], gameBoard.tiles[8]],
-            verticalTop: [gameBoard.tiles[0], gameBoard.tiles[3], gameBoard.tiles[6]],
-            verticalMid: [gameBoard.tiles[1], gameBoard.tiles[4], gameBoard.tiles[7]],
-            verticalBot: [gameBoard.tiles[2], gameBoard.tiles[5], gameBoard.tiles[8]],
-            diagonalL: [gameBoard.tiles[0], gameBoard.tiles[4], gameBoard.tiles[8]],
-            diagonalR: [gameBoard.tiles[6], gameBoard.tiles[4], gameBoard.tiles[2]],
+            horizontalTop: [gameBoard.tiles[0], gameBoard.tiles[1], gameBoard.tiles[2], 0, 1, 2],
+            horizontalMid: [gameBoard.tiles[3], gameBoard.tiles[4], gameBoard.tiles[5], 3, 4, 5],
+            horizontalBot: [gameBoard.tiles[6], gameBoard.tiles[7], gameBoard.tiles[8], 6, 7, 8],
+            verticalTop: [gameBoard.tiles[0], gameBoard.tiles[3], gameBoard.tiles[6], 0, 3, 6],
+            verticalMid: [gameBoard.tiles[1], gameBoard.tiles[4], gameBoard.tiles[7], 1, 4, 7],
+            verticalBot: [gameBoard.tiles[2], gameBoard.tiles[5], gameBoard.tiles[8], 2, 5, 8],
+            diagonalL: [gameBoard.tiles[0], gameBoard.tiles[4], gameBoard.tiles[8], 0, 4, 8],
+            diagonalR: [gameBoard.tiles[6], gameBoard.tiles[4], gameBoard.tiles[2], 6, 4, 2],
             isWin(array) {return gameBoard.hasWin(array)}
         }
         if (winCases.isWin(winCases.horizontalTop)) {
